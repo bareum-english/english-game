@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vocabulary Rush · Lesson 3–4</title>
+<style>
+:root{--bg:#07111f;--card:#101d31;--line:#233653;--text:#f5f8ff;--muted:#a9b8cf;--accent:#13c7bd;--accent2:#49a7ff;--good:#2bd576;--bad:#ff667a}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;background:radial-gradient(circle at 50% 0,#123251 0,#07111f 45%);color:var(--text);min-height:100vh}
+.wrap{max-width:760px;margin:auto;padding:20px}.brand{text-align:center;margin:14px 0 20px}.brand h1{font-size:clamp(28px,7vw,48px);margin:0}.brand b{color:var(--accent)}.brand p{color:var(--muted);margin:7px}
+.card{background:rgba(16,29,49,.94);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 20px 55px #0006}
+.row{display:flex;gap:10px;flex-wrap:wrap}.pick{flex:1;min-width:145px}label{display:block;color:var(--muted);font-size:13px;margin:0 0 7px}
+select,button{font:inherit}select{width:100%;background:#0b1628;color:white;border:1px solid var(--line);padding:12px;border-radius:12px}
+.start{width:100%;margin-top:18px;border:0;padding:15px;border-radius:14px;background:linear-gradient(90deg,var(--accent),var(--accent2));font-weight:900;color:#04121e;cursor:pointer}
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px}.stat{background:#0b1628;border-radius:12px;padding:9px;text-align:center}.stat small{display:block;color:var(--muted)}.stat strong{font-size:20px}
+.bar{height:7px;background:#0b1628;border-radius:10px;overflow:hidden;margin-bottom:20px}.bar i{display:block;height:100%;width:100%;background:var(--accent);transition:.2s}
+.tag{display:inline-block;color:var(--accent);font-size:13px;font-weight:800}.question{text-align:center;padding:20px 5px}.question h2{font-size:clamp(27px,8vw,45px);margin:8px 0}.question p{color:var(--muted);margin:0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ans{min-height:78px;background:#14243b;border:1px solid #29415f;color:white;border-radius:15px;padding:12px;cursor:pointer;font-weight:700}.ans:hover{border-color:var(--accent)}.ans.good{background:#123d2b;border-color:var(--good)}.ans.bad{background:#4a2030;border-color:var(--bad)}
+.feedback{text-align:center;height:30px;margin-top:12px;font-weight:800}.hidden{display:none!important}.result{text-align:center}.scoreBig{font-size:58px;font-weight:950;color:var(--accent);margin:5px}.wrong{margin-top:18px;text-align:left;max-height:230px;overflow:auto}.wrong div{padding:8px 4px;border-bottom:1px solid var(--line);color:var(--muted)}.wrong b{color:white}
+.actions{display:flex;gap:9px;margin-top:16px}.actions button{flex:1;border:1px solid var(--line);background:#14243b;color:white;border-radius:13px;padding:13px;cursor:pointer}
+@media(max-width:520px){.answers{grid-template-columns:1fr}.hud{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body><div class="wrap">
+<div class="brand"><h1>VOCABULARY <b>RUSH</b></h1><p>Lesson 3–4 · 60초 어휘 챌린지</p></div>
+<section id="setup" class="card">
+ <div class="row">
+  <div class="pick"><label>범위</label><select id="lesson"><option value="All">Lesson 3 + 4</option><option>Lesson 3</option><option>Lesson 4</option></select></div>
+  <div class="pick"><label>게임 모드</label><select id="mode"><option value="enko">영어 → 한국어</option><option value="koen">한국어 → 영어</option><option value="mix">랜덤 MIX</option></select></div>
+  <div class="pick"><label>시간</label><select id="seconds"><option value="60">60초</option><option value="90">90초</option><option value="120">120초</option></select></div>
+ </div>
+ <button class="start" onclick="startGame()">GAME START ⚡</button>
+</section>
+<section id="game" class="card hidden">
+ <div class="hud"><div class="stat"><small>TIME</small><strong id="time">60</strong></div><div class="stat"><small>SCORE</small><strong id="score">0</strong></div><div class="stat"><small>COMBO</small><strong id="combo">0</strong></div><div class="stat"><small>BEST</small><strong id="best">0</strong></div></div>
+ <div class="bar"><i id="bar"></i></div>
+ <div class="question"><span class="tag" id="tag"></span><h2 id="q"></h2><p id="hint"></p></div>
+ <div class="answers" id="answers"></div><div class="feedback" id="feedback"></div>
+</section>
+<section id="result" class="card result hidden">
+ <span class="tag">MISSION COMPLETE</span><h2>최종 점수</h2><div class="scoreBig" id="finalScore">0</div>
+ <p id="summary"></p><div class="wrong" id="wrong"></div>
+ <div class="actions"><button onclick="retryWrong()">틀린 단어 복습</button><button onclick="back()">처음으로</button></div>
+</section>
+</div>
+<script>
+const WORDS=[{"lesson": "Lesson 3", "section": "Reading", "word": "statistical", "meaning": "a. 통계적(인)"}, {"lesson": "Lesson 3", "section": "Reading", "word": "offensive", "meaning": "a. 공격의"}, {"lesson": "Lesson 3", "section": "Reading", "word": "frequency", "meaning": "n. 빈도"}, {"lesson": "Lesson 3", "section": "Reading", "word": "underrated", "meaning": "a. 과소평가된"}, {"lesson": "Lesson 3", "section": "Reading", "word": "contribution", "meaning": "n. 기여"}, {"lesson": "Lesson 3", "section": "Reading", "word": "budget", "meaning": "n. 예산"}, {"lesson": "Lesson 3", "section": "Reading", "word": "prompt", "meaning": "v. 자극하다"}, {"lesson": "Lesson 3", "section": "Reading", "word": "analytics", "meaning": "n. 분석"}, {"lesson": "Lesson 3", "section": "Reading", "word": "undergo", "meaning": "v. (변화를) 겪다"}, {"lesson": "Lesson 3", "section": "Reading", "word": "prevailing", "meaning": "a. 우세한"}, {"lesson": "Lesson 3", "section": "Reading", "word": "expertise", "meaning": "n. 전문 지식"}, {"lesson": "Lesson 3", "section": "Reading", "word": "recruitment", "meaning": "n. (구성원) 모집"}, {"lesson": "Lesson 3", "section": "Reading", "word": "strategy", "meaning": "n. 전략"}, {"lesson": "Lesson 3", "section": "Reading", "word": "vital sign", "meaning": "활력 징후"}, {"lesson": "Lesson 3", "section": "Reading", "word": "tactical", "meaning": "a. 전략적인"}, {"lesson": "Lesson 3", "section": "Reading", "word": "substitution", "meaning": "n. 교체"}, {"lesson": "Lesson 3", "section": "Reading", "word": "notable", "meaning": "a. 주목할 만한"}, {"lesson": "Lesson 3", "section": "Reading", "word": "sweep", "meaning": "v. (빗자루 등으로) 쓸다"}, {"lesson": "Lesson 3", "section": "Reading", "word": "dominate", "meaning": "v. (스포츠 경기에서) 우세하다"}, {"lesson": "Lesson 3", "section": "Reading", "word": "edge", "meaning": "n. 우위"}, {"lesson": "Lesson 3", "section": "Reading", "word": "advanced", "meaning": "a. 선진의"}, {"lesson": "Lesson 3", "section": "Reading", "word": "convert", "meaning": "v. 전환하다"}, {"lesson": "Lesson 3", "section": "Reading", "word": "stable", "meaning": "a. 안정적인"}, {"lesson": "Lesson 3", "section": "Reading", "word": "chemistry", "meaning": "n. (사람들 사이의) 조화나 호흡"}, {"lesson": "Lesson 3", "section": "Reading", "word": "undeniably", "meaning": "ad. 명백하게"}, {"lesson": "Lesson 3", "section": "Reading", "word": "elevate", "meaning": "v. 증가시키다"}, {"lesson": "Lesson 3", "section": "Further Reading", "word": "transfer", "meaning": "v. 전환하다"}, {"lesson": "Lesson 3", "section": "Further Reading", "word": "overall", "meaning": "a. 전체의"}, {"lesson": "Lesson 3", "section": "Further Reading", "word": "diameter", "meaning": "n. 지름"}, {"lesson": "Lesson 3", "section": "Further Reading", "word": "thrilling", "meaning": "a. 아주 신나는"}, {"lesson": "Lesson 4", "section": "Reading", "word": "remarkable", "meaning": "a. 놀랄 만한"}, {"lesson": "Lesson 4", "section": "Reading", "word": "witness", "meaning": "v. 목격하다"}, {"lesson": "Lesson 4", "section": "Reading", "word": "march", "meaning": "v. 행진하다"}, {"lesson": "Lesson 4", "section": "Reading", "word": "memorial service", "meaning": "n. 추도식"}, {"lesson": "Lesson 4", "section": "Reading", "word": "late", "meaning": "a. 고인이 된"}, {"lesson": "Lesson 4", "section": "Reading", "word": "fortress", "meaning": "n. 요새"}, {"lesson": "Lesson 4", "section": "Reading", "word": "self-sufficient", "meaning": "a. 자급자족할 수 있는"}, {"lesson": "Lesson 4", "section": "Reading", "word": "architectural", "meaning": "a. 건축술의"}, {"lesson": "Lesson 4", "section": "Reading", "word": "rush", "meaning": "n. 쇄도"}, {"lesson": "Lesson 4", "section": "Reading", "word": "fancy", "meaning": "a. 값비싼, 고급의"}, {"lesson": "Lesson 4", "section": "Reading", "word": "cherry on top", "meaning": "금상첨화"}, {"lesson": "Lesson 4", "section": "Reading", "word": "accessible", "meaning": "a. 다가가기 쉬운, 접근 가능한"}, {"lesson": "Lesson 4", "section": "Reading", "word": "innovative", "meaning": "a. 획기적인"}, {"lesson": "Lesson 4", "section": "Reading", "word": "diverse", "meaning": "a. 다양한"}, {"lesson": "Lesson 4", "section": "Reading", "word": "document", "meaning": "v. 기록하다"}, {"lesson": "Lesson 4", "section": "Reading", "word": "heritage", "meaning": "n. (국가, 사회 등의) 유산"}, {"lesson": "Lesson 4", "section": "Reading", "word": "authentic", "meaning": "a. 진짜와 꼭 같게 만든, 진본인"}, {"lesson": "Lesson 4", "section": "Reading", "word": "translate", "meaning": "v. 번역하다"}, {"lesson": "Lesson 4", "section": "Reading", "word": "restore", "meaning": "v. 복원하다"}, {"lesson": "Lesson 4", "section": "Reading", "word": "significant", "meaning": "a. 중요한"}, {"lesson": "Lesson 4", "section": "Further Reading", "word": "defense", "meaning": "n. 방어 시설"}, {"lesson": "Lesson 4", "section": "Further Reading", "word": "scarce", "meaning": "a. 부족한"}, {"lesson": "Lesson 4", "section": "Further Reading", "word": "surround", "meaning": "v. 둘러싸다"}, {"lesson": "Lesson 4", "section": "Further Reading", "word": "withdraw", "meaning": "v. 물러나다"}];
+let pool=[], current=null, score=0, combo=0, best=0, correct=0, total=0, left=60, initial=60, timer=null, wrong=[], locked=false, wrongOnly=false;
+const $=x=>document.getElementById(x), shuffle=a=>[...a].sort(()=>Math.random()-.5);
+function startGame(custom=null){
+ pool=custom||WORDS.filter(x=>$("lesson").value==="All"||x.lesson===$("lesson").value);
+ if(!pool.length)return alert("복습할 단어가 없습니다.");
+ score=combo=best=correct=total=0; wrong=[]; initial=left=custom?60:+$("seconds").value; wrongOnly=!!custom;
+ $("setup").classList.add("hidden");$("result").classList.add("hidden");$("game").classList.remove("hidden"); updateHud(); next();
+ clearInterval(timer);timer=setInterval(()=>{left--;updateHud();if(left<=0)endGame()},1000);
+}
+function updateHud(){$("time").textContent=left;$("score").textContent=score;$("combo").textContent=combo;$("best").textContent=best;$("bar").style.width=(left/initial*100)+"%"}
+function next(){
+ locked=false; $("feedback").textContent="";
+ current=pool[Math.floor(Math.random()*pool.length)];
+ let mode=$("mode").value;if(mode==="mix")mode=Math.random()<.5?"enko":"koen";
+ let ask=mode==="enko"?current.word:current.meaning, answer=mode==="enko"?current.meaning:current.word;
+ let candidates=pool.filter(x=>x.word!==current.word).map(x=>mode==="enko"?x.meaning:x.word);
+ let opts=shuffle([answer,...shuffle([...new Set(candidates)]).slice(0,3)]);
+ $("tag").textContent=current.lesson+" · "+current.section;$("q").textContent=ask;$("hint").textContent=mode==="enko"?"알맞은 뜻을 고르세요":"알맞은 영어 표현을 고르세요";
+ $("answers").innerHTML="";opts.forEach(o=>{let b=document.createElement("button");b.className="ans";b.textContent=o;b.onclick=()=>choose(b,o,answer);$("answers").appendChild(b)})
+}
+function choose(btn,val,answer){
+ if(locked)return;locked=true;total++;
+ [...$("answers").children].forEach(b=>{b.disabled=true;if(b.textContent===answer)b.classList.add("good")});
+ if(val===answer){correct++;combo++;best=Math.max(best,combo);score+=100+Math.min(combo-1,10)*10;$("feedback").textContent="정답!  +"+(100+Math.min(combo-1,10)*10)}
+ else{btn.classList.add("bad");combo=0;wrong.push(current);$("feedback").textContent="정답: "+answer}
+ updateHud();setTimeout(()=>{if(left>0)next()},520)
+}
+function endGame(){
+ clearInterval(timer);$("game").classList.add("hidden");$("result").classList.remove("hidden");$("finalScore").textContent=score;
+ let acc=total?Math.round(correct/total*100):0;$("summary").textContent=`${total}문제 · ${correct}개 정답 · 정답률 ${acc}% · 최고 콤보 ${best}`;
+ let uniq=[...new Map(wrong.map(x=>[x.word,x])).values()];
+ $("wrong").innerHTML=uniq.length?"<h3>다시 볼 단어</h3>"+uniq.map(x=>`<div><b>${x.word}</b> — ${x.meaning}</div>`).join(""):"<h3>PERFECT! 틀린 단어가 없습니다.</h3>";
+ window.lastWrong=uniq;
+}
+function retryWrong(){if(window.lastWrong?.length)startGame(window.lastWrong);else alert("틀린 단어가 없어요!")}
+function back(){clearInterval(timer);$("result").classList.add("hidden");$("game").classList.add("hidden");$("setup").classList.remove("hidden")}
+</script></body></html>
