@@ -1,1 +1,54 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vocabulary Game Center</title><style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at top,#17305d,#07101f 55%,#030711);color:#fff;font-family:Arial,'Noto Sans KR',sans-serif}.wrap{width:min(920px,92vw);text-align:center}.tag{letter-spacing:.22em;color:#8bdcff;font-weight:800}.title{font-size:clamp(34px,6vw,64px);margin:12px 0 8px}.sub{color:#aab8cf;margin-bottom:34px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.card{display:block;text-decoration:none;color:#fff;padding:30px 24px;border:1px solid #29466e;border-radius:22px;background:linear-gradient(145deg,rgba(21,40,72,.95),rgba(7,16,31,.95));box-shadow:0 18px 50px #0008;transition:.18s}.card:hover{transform:translateY(-5px);border-color:#69d8ff}.icon{font-size:54px}.card h2{font-size:26px;margin:12px 0 8px}.card p{color:#b9c7da;line-height:1.65;margin:0 0 18px}.btn{display:inline-block;padding:11px 20px;border-radius:999px;background:#fff;color:#07101f;font-weight:900}.old{color:#ffd36a}.new{color:#ff839d}.foot{margin-top:26px;color:#71829e;font-size:13px}@media(max-width:680px){.grid{grid-template-columns:1fr}}</style></head><body><main class="wrap"><div class="tag">BAREUM ENGLISH</div><h1 class="title">VOCABULARY GAME CENTER</h1><p class="sub">원하는 어휘 게임을 선택하세요.</p><section class="grid"><a class="card" href="rush.html"><div class="icon">⚡</div><h2 class="old">VOCABULARY RUSH</h2><p>1차고사 어휘 복습<br>60초 Rush + WORD DESTROYER Boss Battle</p><span class="btn">RUSH START →</span></a><a class="card" href="survival.html"><div class="icon">❤️</div><h2 class="new">VOCAB SURVIVAL</h2><p>2차고사 어휘 대비<br>5 Lives · 50 Questions · Shield · Final Boss</p><span class="btn">SURVIVAL START →</span></a></section><div class="foot">Vocabulary Game Center · Jeonju Youngsaeng High School</div></main></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vocabulary Game Center</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at top,#17305d,#07101f 55%,#030711);color:#fff;font-family:Arial,'Noto Sans KR',sans-serif}.wrap{width:min(980px,92vw);text-align:center;padding:36px 0}.tag{letter-spacing:.22em;color:#8bdcff;font-weight:800}.title{font-size:clamp(34px,6vw,64px);margin:12px 0 8px}.sub{color:#aab8cf;margin-bottom:34px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.card{display:block;text-decoration:none;color:#fff;padding:30px 24px;border:1px solid #29466e;border-radius:22px;background:linear-gradient(145deg,rgba(21,40,72,.95),rgba(7,16,31,.95));box-shadow:0 18px 50px #0008;transition:.18s}.card:hover{transform:translateY(-5px);border-color:#69d8ff}.icon{font-size:54px}.card h2{font-size:26px;margin:12px 0 8px}.card p{color:#b9c7da;line-height:1.65;margin:0 0 18px}.btn{display:inline-block;padding:11px 20px;border:0;border-radius:999px;background:#fff;color:#07101f;font-weight:900;cursor:pointer;font-size:15px}.old{color:#ffd36a}.new{color:#ff839d}.rankBtn{margin-top:24px;background:linear-gradient(90deg,#ffd36a,#fff0a6);padding:14px 28px;font-size:17px}.foot{margin-top:26px;color:#71829e;font-size:13px}.hidden{display:none!important}.rankPanel{margin-top:26px;padding:26px;border:1px solid #29466e;border-radius:22px;background:rgba(5,13,27,.94);box-shadow:0 18px 50px #0008}.rankHead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}.rankHead h2{margin:0;font-size:28px}.rankGrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.rankBox{min-width:0;padding:18px;border:1px solid #263d60;border-radius:16px;background:#09172b}.rankBox h3{margin:0 0 14px}.tableWrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:10px 7px;border-bottom:1px solid #20334f;text-align:left;white-space:nowrap}th{color:#8bdcff;font-size:12px}td:nth-child(1){width:36px}td:nth-child(3){font-weight:900}.status{font-size:12px}.loading{padding:28px;color:#aab8cf}.error{color:#ff9cac;padding:18px}.closeBtn{background:#162943;color:#fff;border:1px solid #365276}.note{color:#71829e;font-size:12px;margin:16px 0 0}.medal{font-size:16px}@media(max-width:760px){.grid,.rankGrid{grid-template-columns:1fr}.rankHead{align-items:flex-start;flex-direction:column}.rankHead .btn{width:100%}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="tag">BAREUM ENGLISH</div>
+<h1 class="title">VOCABULARY GAME CENTER</h1>
+<p class="sub">원하는 어휘 게임을 선택하세요.</p>
+<section id="gameMenu">
+<div class="grid">
+<a class="card" href="rush.html"><div class="icon">⚡</div><h2 class="old">VOCABULARY RUSH</h2><p>1차고사 어휘 복습<br>60초 Rush + WORD DESTROYER Boss Battle</p><span class="btn">RUSH START →</span></a>
+<a class="card" href="survival.html"><div class="icon">❤️</div><h2 class="new">VOCAB SURVIVAL</h2><p>2차고사 어휘 대비<br>5 Lives · 50 Questions · Shield · Final Boss</p><span class="btn">SURVIVAL START →</span></a>
+</div>
+<button class="btn rankBtn" id="showRank">🏆 전체 랭킹 보기</button>
+</section>
+<section id="rankPanel" class="rankPanel hidden">
+<div class="rankHead"><h2>🏆 ONLINE TOP 10</h2><button class="btn closeBtn" id="closeRank">← 게임 선택으로</button></div>
+<div class="rankGrid">
+<div class="rankBox"><h3 class="old">⚡ RUSH TOP 10</h3><div id="rushRank" class="loading">랭킹 불러오는 중...</div></div>
+<div class="rankBox"><h3 class="new">❤️ SURVIVAL TOP 10</h3><div id="survivalRank" class="loading">랭킹 불러오는 중...</div></div>
+</div>
+<p class="note">닉네임별 최고 기록만 표시됩니다. 이 화면에서는 기록이 저장되거나 변경되지 않습니다.</p>
+</section>
+<div class="foot">Vocabulary Game Center · Jeonju Youngsaeng High School</div>
+</main>
+<script>
+const SUPABASE_URL='https://vapmckxhutmsdnblfqje.supabase.co';
+const SUPABASE_KEY='sb_publishable_T2ghxzzsLEWLOgRLPZRaFg_1Ulo70fB';
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function api(path){const r=await fetch(SUPABASE_URL+'/rest/v1/'+path,{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});const t=await r.text();if(!r.ok)throw new Error(t||('HTTP '+r.status));return t?JSON.parse(t):[]}
+function medal(i){return i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1)}
+function bestByNickname(rows,compare){const m=new Map();for(const r of rows||[]){const old=m.get(r.nickname);if(!old||compare(r,old)<0)m.set(r.nickname,r)}return [...m.values()].sort(compare).slice(0,10)}
+function rushTable(rows){if(!rows.length)return '<div class="loading">아직 등록된 기록이 없습니다.</div>';return '<div class="tableWrap"><table><tr><th>#</th><th>PLAYER</th><th>SCORE</th><th>STATUS</th></tr>'+rows.map((r,i)=>`<tr><td class="medal">${medal(i)}</td><td>${esc(r.nickname)}</td><td>${Number(r.score).toLocaleString()}</td><td class="status">${r.boss_clear?'🏆 CLEAR':'💀 HP '+Number(r.boss_hp)}</td></tr>`).join('')+'</table></div>'}
+function survivalTable(rows){if(!rows.length)return '<div class="loading">아직 등록된 기록이 없습니다.</div>';return '<div class="tableWrap"><table><tr><th>#</th><th>PLAYER</th><th>SCORE</th><th>ACC</th><th>STATUS</th></tr>'+rows.map((r,i)=>`<tr><td class="medal">${medal(i)}</td><td>${esc(r.nickname)}</td><td>${Number(r.score).toLocaleString()}</td><td>${Number(r.accuracy).toFixed(1)}%</td><td class="status">${r.survived?'🏆 SURVIVED':'💀 GAME OVER'}</td></tr>`).join('')+'</table></div>'}
+async function loadRanks(){
+ $('rushRank').innerHTML='랭킹 불러오는 중...';$('survivalRank').innerHTML='랭킹 불러오는 중...';
+ const rushP=api('scores?select=nickname,score,boss_clear,boss_hp,created_at&order=score.desc&limit=1000').then(rows=>bestByNickname(rows,(a,b)=>Number(b.score)-Number(a.score)||Number(b.boss_clear)-Number(a.boss_clear)||Number(a.boss_hp)-Number(b.boss_hp)));
+ const survivalP=api('survival_scores?select=nickname,score,accuracy,lives,survived,valid_run,created_at&valid_run=eq.true&order=score.desc&limit=1000').then(rows=>bestByNickname(rows,(a,b)=>Number(b.score)-Number(a.score)||Number(b.survived)-Number(a.survived)||Number(b.accuracy)-Number(a.accuracy)||Number(b.lives)-Number(a.lives)));
+ const [r,s]=await Promise.allSettled([rushP,survivalP]);
+ $('rushRank').innerHTML=r.status==='fulfilled'?rushTable(r.value):'<div class="error">Rush 랭킹을 불러오지 못했습니다.</div>';
+ $('survivalRank').innerHTML=s.status==='fulfilled'?survivalTable(s.value):'<div class="error">Survival 랭킹을 불러오지 못했습니다.</div>';
+}
+$('showRank').addEventListener('click',()=>{$('gameMenu').classList.add('hidden');$('rankPanel').classList.remove('hidden');loadRanks()});
+$('closeRank').addEventListener('click',()=>{$('rankPanel').classList.add('hidden');$('gameMenu').classList.remove('hidden')});
+</script>
+</body></html>
